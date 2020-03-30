@@ -23,7 +23,7 @@ public class CarteleraCharacterStreams {
         String apartado[] = {"Año: ", "Director: ", "Duración: ", "Sinopsis: ", "Reparto: ", "Sesión: "};
         int texto;
         int i = 0;
-        try (FileReader leer = new FileReader(rutaOrigen);
+        try (FileReader leer = new FileReader(entrada);
                 FileWriter escribir = new FileWriter(salida)) {
             for (int j = 0; j < enunciado.length(); j++) {
                 escribir.write(enunciado.charAt(j));

@@ -7,6 +7,7 @@ package practica.pkg7;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import static practica.pkg7.BuffersCharacterStreams.leerBuffer;
 import static practica.pkg7.CarteleraByteStreams.leerByte;
 import static practica.pkg7.CarteleraCharacterStreams.leerCharacter;
 
@@ -54,6 +55,7 @@ public class Menu {
                         break;
                     case 3:
                         System.out.println("Has seleccionado la opcion 3");
+                        leerBuffer(rellenarRuta("Dime la ruta de Origen:"), rellenarRuta("Dime la ruta de Destino:"));
                         break;
                     case 4:
                         salir = true;
