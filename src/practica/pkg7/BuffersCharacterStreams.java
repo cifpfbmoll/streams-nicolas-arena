@@ -25,32 +25,33 @@ public class BuffersCharacterStreams {
         String apartado[] = {"Año: ", "Director: ", "Duración: ", "Sinopsis: ", "Reparto: ", "Sesión: "};
         int texto;
         int i = 0;
-        String lineaLeida = "";
-        String[] peliculas = null;
-        String[] apartados_peliculas = null;
         try (BufferedReader leer = new BufferedReader(new FileReader(entrada));
                 BufferedWriter escribir = new BufferedWriter(new FileWriter(salida))) {
-
+            String lineaLeida = leer.readLine();
+            String[] peliculas = lineaLeida.split("\\{");
+            String[][] apartados_peliculas = new String[peliculas.length][apartado.length + 1];
             escribir.write(enunciado, 0, enunciado.length());
 
             escribir.newLine();
 
-            lineaLeida = leer.readLine();
-            peliculas = lineaLeida.split("\\{");
             for (int p = 0; p < peliculas.length; p++) {
-                apartados_peliculas = peliculas[p].split("#");
+                apartados_peliculas[p] = peliculas[p].split("#");
             }
             escribir.newLine();
 
             for (int j = 0; j < apartados_peliculas.length; j++) {
-                escribir.write(apartados_peliculas[j]);
-                escribir.newLine();
-                if (i < 6) {
-                    escribir.write(apartado[i]);
-                    i++;
-                } else {
-                    i = 0;
+                for (int m = 0; m < apartados_peliculas[j].length; m++) {
+
+                    escribir.write(apartados_peliculas[j][m]);
+                    escribir.newLine();
+                    if (i < 6) {
+                        escribir.write(apartado[i]);
+                        i++;
+                    } else {
+                        i = 0;
+                    }
                 }
+                escribir.newLine();
             }
 
         } catch (IOException exc) {
