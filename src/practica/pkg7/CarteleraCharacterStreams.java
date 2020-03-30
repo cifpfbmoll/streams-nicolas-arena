@@ -28,12 +28,12 @@ public class CarteleraCharacterStreams {
             for (int j = 0; j < enunciado.length(); j++) {
                 escribir.write(enunciado.charAt(j));
             }
-            escribir.write((char) 10);
+            escribir.write(System.getProperty( "line.separator" ));
             do {
                 texto = leer.read();
                 if (texto != -1) {
                     if (Character.toString((char) texto).equals("#")) {
-                        escribir.write((char) 10);
+                        escribir.write(System.getProperty( "line.separator" ));
                         if (i >= 0 && i < 6) {
                             for (int j = 0; j < apartado[i].length(); j++) {
                                 escribir.write(apartado[i].charAt(j));
@@ -42,8 +42,8 @@ public class CarteleraCharacterStreams {
                         i++;
 
                     } else if (Character.toString((char) texto).equals("{")) {
-                        escribir.write((char) 10);
-                        escribir.write((char) 10);
+                        escribir.write(System.getProperty( "line.separator" ));
+                        escribir.write(System.getProperty( "line.separator" ));
                         i = 0;
                     } else {
                         escribir.write(texto);
