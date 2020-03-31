@@ -16,7 +16,7 @@ import java.io.IOException;
  */
 public class CarteleraCharacterStreams {
 
-    public static void leerCharacter(String rutaOrigen, String rutaDestino) {
+    public static void leerCharacter(String rutaOrigen, String rutaDestino) throws ErrorRutaEntrada, ErrorRutaSalida{
         File entrada = new File(rutaOrigen);
         File salida = new File(rutaDestino);
         String enunciado = "Cartelera de CineFBMoll";

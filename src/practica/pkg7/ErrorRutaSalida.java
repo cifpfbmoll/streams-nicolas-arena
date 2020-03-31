@@ -9,6 +9,6 @@ package practica.pkg7;
  *
  * @author Usuario
  */
-public class ErrorRutaSalida {
+public class ErrorRutaSalida extends Exception{
     
 }

@@ -15,7 +15,7 @@ import java.io.IOException;
  */
 public class CarteleraByteStreams {
 
-    public static void leerByte(String rutaOrigen, String rutaDestino) {
+    public static void leerByte(String rutaOrigen, String rutaDestino) throws ErrorRutaEntrada, ErrorRutaSalida{
         String enunciado = "Cartelera de CineFBMoll";
         byte[] enunciado_convertido = enunciado.getBytes();
         String apartado[] = {"Año: ", "Director: ", "Duración: ", "Sinopsis: ", "Reparto: ", "Sesión: "};

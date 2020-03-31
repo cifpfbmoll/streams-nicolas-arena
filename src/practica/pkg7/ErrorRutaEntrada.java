@@ -9,6 +9,20 @@ package practica.pkg7;
  *
  * @author Usuario
  */
-public class ErrorRutaEntrada {
-    
+public class ErrorRutaEntrada extends Exception {
+
+    public String mensaje;
+
+    public ErrorRutaEntrada(String mensaje) {
+        this.setMensaje("Has tenido un error al poner la ruta de origen");
+    }
+
+    public String getMensaje() {
+        return mensaje;
+    }
+
+    public void setMensaje(String mensaje) {
+        this.mensaje = mensaje;
+    }
+
 }

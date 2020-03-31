@@ -5,8 +5,14 @@
  */
 package practica.pkg7;
 
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import static practica.pkg7.BuffersCharacterStreams.leerBuffer;
 import static practica.pkg7.CarteleraByteStreams.leerByte;
 import static practica.pkg7.CarteleraCharacterStreams.leerCharacter;
@@ -24,6 +30,8 @@ public class Menu {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        File entrada = new File("errores.txt");
+        File salida = new File("errores.txt");
 
         boolean salir = false;
         int opcion; //Guardaremos la opcion del usuario
@@ -39,7 +47,8 @@ public class Menu {
             System.out.println("");
             System.out.println("4. Salir");
 
-            try {
+            try (FileReader leer = new FileReader(entrada);
+                    FileWriter escribir = new FileWriter(salida)) {
 
                 System.out.println("Escribe una de las opciones");
                 opcion = Integer.parseInt(lector.nextLine());
@@ -66,6 +75,12 @@ public class Menu {
             } catch (InputMismatchException e) {
                 System.out.println("Debes insertar un número");
                 lector.next();
+            } catch (ErrorRutaEntrada ex1) {
+
+            } catch (ErrorRutaSalida ex2) {
+
+            } catch (IOException ex) {
+                Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
