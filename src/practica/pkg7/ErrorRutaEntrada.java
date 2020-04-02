@@ -12,9 +12,14 @@ package practica.pkg7;
 public class ErrorRutaEntrada extends Exception {
 
     public String mensaje;
+    public int errorCode;
 
-    public ErrorRutaEntrada(String mensaje) {
-        this.setMensaje("Has tenido un error al poner la ruta de origen");
+    public ErrorRutaEntrada() {
+    }
+
+    public ErrorRutaEntrada(String mensaje, int errorCode) {
+        this.mensaje = mensaje;
+        this.errorCode = errorCode;
     }
 
     public String getMensaje() {
@@ -23,6 +28,14 @@ public class ErrorRutaEntrada extends Exception {
 
     public void setMensaje(String mensaje) {
         this.mensaje = mensaje;
+    }
+
+    public int getErrorCode() {
+        return errorCode;
+    }
+
+    public void setErrorCode(int errorCode) {
+        this.errorCode = errorCode;
     }
 
 }
