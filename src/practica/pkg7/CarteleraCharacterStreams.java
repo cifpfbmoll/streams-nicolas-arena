@@ -6,9 +6,11 @@
 package practica.pkg7;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Arrays;
 
 /**
  *
@@ -16,7 +18,7 @@ import java.io.IOException;
  */
 public class CarteleraCharacterStreams {
 
-    public static void leerCharacter(String rutaOrigen, String rutaDestino) throws ErrorRutaEntrada, ErrorRutaSalida{
+    public static void leerCharacter(String rutaOrigen, String rutaDestino) throws ErrorRutaEntrada, ErrorRutaSalida {
         File entrada = new File(rutaOrigen);
         File salida = new File(rutaDestino);
         String enunciado = "Cartelera de CineFBMoll";
@@ -28,12 +30,12 @@ public class CarteleraCharacterStreams {
             for (int j = 0; j < enunciado.length(); j++) {
                 escribir.write(enunciado.charAt(j));
             }
-            escribir.write(System.getProperty( "line.separator" ));
+            escribir.write(System.getProperty("line.separator"));
             do {
                 texto = leer.read();
                 if (texto != -1) {
                     if (Character.toString((char) texto).equals("#")) {
-                        escribir.write(System.getProperty( "line.separator" ));
+                        escribir.write(System.getProperty("line.separator"));
                         if (i >= 0 && i < 6) {
                             for (int j = 0; j < apartado[i].length(); j++) {
                                 escribir.write(apartado[i].charAt(j));
@@ -42,14 +44,16 @@ public class CarteleraCharacterStreams {
                         i++;
 
                     } else if (Character.toString((char) texto).equals("{")) {
-                        escribir.write(System.getProperty( "line.separator" ));
-                        escribir.write(System.getProperty( "line.separator" ));
+                        escribir.write(System.getProperty("line.separator"));
+                        escribir.write(System.getProperty("line.separator"));
                         i = 0;
                     } else {
                         escribir.write(texto);
                     }
                 }
             } while (texto != -1);
+        } catch (FileNotFoundException exf) {
+            throw new ErrorRutaEntrada(exf.getMessage(), Arrays.toString(exf.getStackTrace()));
         } catch (IOException exc) {
             System.out.println("Error al leer el archivo");
             System.out.println(exc.getMessage());

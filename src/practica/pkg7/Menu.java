@@ -75,9 +75,10 @@ public class Menu {
             } catch (InputMismatchException e) {
                 System.out.println("Debes insertar un número");
                 lector.next();
-            } catch (ErrorRutaEntrada ex1) {
-
-            } catch (ErrorRutaSalida ex2) {
+            } catch (ErrorRutaEntrada ex) {
+                Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ErrorRutaSalida ex) {
+                Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
 
             } catch (IOException ex) {
                 Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);

@@ -5,6 +5,14 @@
  */
 package practica.pkg7;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 /**
  *
  * @author Usuario
@@ -12,16 +20,18 @@ package practica.pkg7;
 public class ErrorRutaEntrada extends Exception {
 
     public String mensaje;
-    public int errorCode;
+    public String trace;
 
     public ErrorRutaEntrada() {
     }
 
-    public ErrorRutaEntrada(String mensaje, int errorCode) {
+    public ErrorRutaEntrada(String mensaje, String trace) {
         this.mensaje = mensaje;
-        this.errorCode = errorCode;
+        this.trace = trace;
+        errorEntrada(mensaje, trace);
     }
 
+    
     public String getMensaje() {
         return mensaje;
     }
@@ -30,12 +40,26 @@ public class ErrorRutaEntrada extends Exception {
         this.mensaje = mensaje;
     }
 
-    public int getErrorCode() {
-        return errorCode;
+    public String getTrace() {
+        return trace;
     }
 
-    public void setErrorCode(int errorCode) {
-        this.errorCode = errorCode;
+    public void setTrace(String trace) {
+        this.trace = trace;
     }
 
+    public static void errorEntrada(String mensaje, String trace) {
+        try (BufferedWriter escritor = new BufferedWriter(new FileWriter("errores.txt", true))) {
+            //Para trabajar con fechas, ver: https://stackoverflow.com/questions/5683728/convert-java-util-date-to-string
+            String plantilla = "MM/dd/yyyy HH:mm:ss";
+            DateFormat df = new SimpleDateFormat(plantilla);
+            Date fechahora = Calendar.getInstance().getTime();
+            String fechahoraString = df.format(fechahora);
+            escritor.write(fechahoraString);
+            escritor.write(": " + mensaje);
+            escritor.write("\n" + trace + "\n\n");
+        } catch (IOException ioex) {
+            System.out.println("Error al leer el archivo.");
+        }
+    }
 }

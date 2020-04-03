@@ -6,8 +6,10 @@
 package practica.pkg7;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Arrays;
 
 /**
  *
@@ -15,7 +17,7 @@ import java.io.IOException;
  */
 public class CarteleraByteStreams {
 
-    public static void leerByte(String rutaOrigen, String rutaDestino) throws ErrorRutaEntrada, ErrorRutaSalida{
+    public static void leerByte(String rutaOrigen, String rutaDestino) throws ErrorRutaEntrada, ErrorRutaSalida {
         String enunciado = "Cartelera de CineFBMoll";
         byte[] enunciado_convertido = enunciado.getBytes();
         String apartado[] = {"Año: ", "Director: ", "Duración: ", "Sinopsis: ", "Reparto: ", "Sesión: "};
@@ -45,9 +47,11 @@ public class CarteleraByteStreams {
                     }
                 }
             } while (texto != -1);
+        } catch (FileNotFoundException exf) {
+            throw new ErrorRutaEntrada(exf.getMessage(), Arrays.toString(exf.getStackTrace()));
         } catch (IOException exc) {
             System.out.println("Error al leer el archivo");
-            System.out.println(exc.getMessage());
+            throw new ErrorRutaEntrada(exc.getMessage(), Arrays.toString(exc.getStackTrace()));
         }
     }
 }
