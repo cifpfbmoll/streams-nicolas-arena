@@ -53,7 +53,7 @@ public class CarteleraCharacterStreams {
                 }
             } while (texto != -1);
         } catch (FileNotFoundException exf) {
-            throw new ErrorRutaEntrada(exf.getMessage(), Arrays.toString(exf.getStackTrace()));
+            throw new ErrorRutaEntrada(exf + "Error en la ruta de entrada", Arrays.toString(exf.getStackTrace()));
         } catch (IOException exc) {
             System.out.println("Error al leer el archivo");
             System.out.println(exc.getMessage());

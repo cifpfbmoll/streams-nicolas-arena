@@ -48,10 +48,11 @@ public class CarteleraByteStreams {
                 }
             } while (texto != -1);
         } catch (FileNotFoundException exf) {
-            throw new ErrorRutaEntrada(exf.getMessage(), Arrays.toString(exf.getStackTrace()));
+            System.out.println();
+            throw new ErrorRutaEntrada(exf + "Error en la ruta de entrada", Arrays.toString(exf.getStackTrace()));
         } catch (IOException exc) {
             System.out.println("Error al leer el archivo");
-            throw new ErrorRutaEntrada(exc.getMessage(), Arrays.toString(exc.getStackTrace()));
+            System.out.println(exc.getMessage());
         }
     }
 }

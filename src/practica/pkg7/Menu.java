@@ -5,6 +5,7 @@
  */
 package practica.pkg7;
 
+import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -24,7 +25,7 @@ public class Menu {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ErrorRutaEntrada {
         // TODO code application logic here
 
         boolean salir = false;
@@ -69,7 +70,7 @@ public class Menu {
                 System.out.println("Debes insertar un número");
                 lector.next();
             } catch (ErrorRutaEntrada ex) {
-                Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+                throw new ErrorRutaEntrada(ex + "Error en la ruta de entrada", Arrays.toString(ex.getStackTrace()));
             } catch (ErrorRutaSalida ex) {
                 Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
 
