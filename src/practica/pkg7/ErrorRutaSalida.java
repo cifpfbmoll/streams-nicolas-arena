@@ -28,6 +28,7 @@ public class ErrorRutaSalida extends Exception {
     public ErrorRutaSalida(String mensaje, String trace) {
         this.mensaje = mensaje;
         this.trace = trace;
+        errorSalida(mensaje, trace);
     }
 
     public String getMensaje() {
