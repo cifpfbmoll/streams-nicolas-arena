@@ -19,8 +19,8 @@ import java.util.Date;
  */
 public class ErrorRutaEntrada extends Exception {
 
-    public String mensaje;
-    public String trace;
+    private String mensaje;
+    private String trace;
 
     public ErrorRutaEntrada() {
     }
