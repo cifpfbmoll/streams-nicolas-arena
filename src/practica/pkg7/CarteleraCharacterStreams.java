@@ -10,7 +10,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Arrays;
 
 /**
  *
@@ -18,45 +17,41 @@ import java.util.Arrays;
  */
 public class CarteleraCharacterStreams {
 
-    public static void leerCharacter(String rutaOrigen, String rutaDestino) throws ErrorRutaEntrada, ErrorRutaSalida {
+    public static void leerCharacter(String rutaOrigen, String rutaDestino) throws FileNotFoundException, IOException {
         File entrada = new File(rutaOrigen);
         File salida = new File(rutaDestino);
         String enunciado = "Cartelera de CineFBMoll";
         String apartado[] = {"Año: ", "Director: ", "Duración: ", "Sinopsis: ", "Reparto: ", "Sesión: "};
         int texto;
         int i = 0;
-        try (FileReader leer = new FileReader(entrada);
-                FileWriter escribir = new FileWriter(salida)) {
-            for (int j = 0; j < enunciado.length(); j++) {
-                escribir.write(enunciado.charAt(j));
-            }
-            escribir.write(System.getProperty("line.separator"));
-            do {
-                texto = leer.read();
-                if (texto != -1) {
-                    if (Character.toString((char) texto).equals("#")) {
-                        escribir.write(System.getProperty("line.separator"));
-                        if (i >= 0 && i < 6) {
-                            for (int j = 0; j < apartado[i].length(); j++) {
-                                escribir.write(apartado[i].charAt(j));
-                            }
-                        }
-                        i++;
-
-                    } else if (Character.toString((char) texto).equals("{")) {
-                        escribir.write(System.getProperty("line.separator"));
-                        escribir.write(System.getProperty("line.separator"));
-                        i = 0;
-                    } else {
-                        escribir.write(texto);
-                    }
-                }
-            } while (texto != -1);
-        } catch (FileNotFoundException exf) {
-            throw new ErrorRutaEntrada(exf + "Error en la ruta de entrada", Arrays.toString(exf.getStackTrace()));
-        } catch (IOException exc) {
-            System.out.println("Error al leer el archivo");
-            System.out.println(exc.getMessage());
+        FileReader leer = new FileReader(entrada);
+        FileWriter escribir = new FileWriter(salida);
+        for (int j = 0; j < enunciado.length(); j++) {
+            escribir.write(enunciado.charAt(j));
         }
+        escribir.write(System.getProperty("line.separator"));
+        do {
+            texto = leer.read();
+            if (texto != -1) {
+                if (Character.toString((char) texto).equals("#")) {
+                    escribir.write(System.getProperty("line.separator"));
+                    if (i >= 0 && i < 6) {
+                        for (int j = 0; j < apartado[i].length(); j++) {
+                            escribir.write(apartado[i].charAt(j));
+                        }
+                    }
+                    i++;
+
+                } else if (Character.toString((char) texto).equals("{")) {
+                    escribir.write(System.getProperty("line.separator"));
+                    escribir.write(System.getProperty("line.separator"));
+                    i = 0;
+                } else {
+                    escribir.write(texto);
+                }
+            }
+        } while (texto != -1);
+        escribir.close();
     }
 }
+

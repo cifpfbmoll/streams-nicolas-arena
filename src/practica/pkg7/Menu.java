@@ -5,7 +5,11 @@
  */
 package practica.pkg7;
 
-import java.util.Arrays;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -25,11 +29,13 @@ public class Menu {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws ErrorRutaEntrada {
+    public static void main(String[] args) throws ErrorRuta {
         // TODO code application logic here
 
         boolean salir = false;
         int opcion; //Guardaremos la opcion del usuario
+        String rutaOrigen = null;
+        String rutaDestino = null;
 
         while (!salir) {
 
@@ -50,15 +56,27 @@ public class Menu {
                 switch (opcion) {
                     case 1:
                         System.out.println("Has seleccionado la opcion 1");
-                        leerByte(rellenarRuta("Dime la ruta de Origen:"), rellenarRuta("Dime la ruta de Destino:"));
+                        rutaOrigen = rellenarRuta("Dime la ruta de Origen:");
+                        rutaDestino = rellenarRuta("Dime la ruta de Destino:");
+                        leerByte(rutaOrigen, rutaDestino);
+                        rutaOrigen = null;
+                        rutaDestino = null;
                         break;
                     case 2:
                         System.out.println("Has seleccionado la opcion 2");
-                        leerCharacter(rellenarRuta("Dime la ruta de Origen:"), rellenarRuta("Dime la ruta de Destino:"));
+                        rutaOrigen = rellenarRuta("Dime la ruta de Origen:");
+                        rutaDestino = rellenarRuta("Dime la ruta de Destino:");
+                        leerCharacter(rutaOrigen, rutaDestino);
+                        rutaOrigen = null;
+                        rutaDestino = null;
                         break;
                     case 3:
                         System.out.println("Has seleccionado la opcion 3");
-                        leerBuffer(rellenarRuta("Dime la ruta de Origen:"), rellenarRuta("Dime la ruta de Destino:"));
+                        rutaOrigen = rellenarRuta("Dime la ruta de Origen:");
+                        rutaDestino = rellenarRuta("Dime la ruta de Destino:");
+                        leerBuffer(rutaOrigen, rutaDestino);
+                        rutaOrigen = null;
+                        rutaDestino = null;
                         break;
                     case 4:
                         salir = true;
@@ -69,11 +87,32 @@ public class Menu {
             } catch (InputMismatchException e) {
                 System.out.println("Debes insertar un número");
                 lector.next();
-            } catch (ErrorRutaEntrada ex) {
-                throw new ErrorRutaEntrada(ex + "Error en la ruta de entrada", Arrays.toString(ex.getStackTrace()));
-            } catch (ErrorRutaSalida ex) {
+            } catch (FileNotFoundException ex) {
+                if (rutaOrigen == null || rutaOrigen.trim().isEmpty() || rutaDestino == null || rutaDestino.trim().isEmpty()) {
+                    try {
+                        throw new ErrorRuta(444);
+                    } catch (ErrorRuta exNueva) {
+                        try {
+                            System.out.println(exNueva.getMensaje());
+                            escribirErrores(exNueva.getMensaje());
+                        } catch (IOException ex1) {
+                            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex1);
+                        }
+                    }
+                } else {
+                    try {
+                        throw new ErrorRuta(333);
+                    } catch (ErrorRuta exNueva) {
+                        try {
+                            System.out.println(exNueva.getMensaje());
+                            escribirErrores(exNueva.getMensaje());
+                        } catch (IOException ex1) {
+                            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex1);
+                        }
+                    }
+                }
+            } catch (IOException ex) {
                 Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
-
             }
         }
     }
@@ -87,4 +126,12 @@ public class Menu {
         return ruta;
     }
 
+    public static void escribirErrores(String mensajeDeError) throws IOException {
+        File finErrores = new File("errores.txt");
+        FileWriter escritorErrores = new FileWriter(finErrores, true);
+        Date fecha = new Date();
+        escritorErrores.write("\n" + mensajeDeError + " " + fecha.toString() + " "); //Me falta poner el stack trace pero no se como ponerlo aqui
+        escritorErrores.close();
+
+    }
 }

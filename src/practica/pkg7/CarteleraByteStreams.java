@@ -9,7 +9,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Arrays;
 
 /**
  *
@@ -17,42 +16,36 @@ import java.util.Arrays;
  */
 public class CarteleraByteStreams {
 
-    public static void leerByte(String rutaOrigen, String rutaDestino) throws ErrorRutaEntrada, ErrorRutaSalida {
+    public static void leerByte(String rutaOrigen, String rutaDestino) throws FileNotFoundException, IOException {
         String enunciado = "Cartelera de CineFBMoll";
         byte[] enunciado_convertido = enunciado.getBytes();
         String apartado[] = {"Año: ", "Director: ", "Duración: ", "Sinopsis: ", "Reparto: ", "Sesión: "};
         int texto;
         int i = 0;
-        try (FileInputStream leer = new FileInputStream(rutaOrigen);
-                FileOutputStream escribir = new FileOutputStream(rutaDestino)) {
-            escribir.write(enunciado_convertido);
-            escribir.write((char) 10);
-            do {
-                texto = leer.read();
-                if (texto != -1) {
-                    if (Character.toString((char) texto).equals("#")) {
-                        escribir.write((char) 10);
-                        if (i >= 0 && i < 6) {
-                            byte[] apartado_convertido = apartado[i].getBytes();
-                            escribir.write(apartado_convertido);
-                        }
-                        i++;
-
-                    } else if (Character.toString((char) texto).equals("{")) {
-                        escribir.write((char) 10);
-                        escribir.write((char) 10);
-                        i = 0;
-                    } else {
-                        escribir.write(texto);
+        FileInputStream leer = new FileInputStream(rutaOrigen);
+        FileOutputStream escribir = new FileOutputStream(rutaDestino);
+        escribir.write(enunciado_convertido);
+        escribir.write((char) 10);
+        do {
+            texto = leer.read();
+            if (texto != -1) {
+                if (Character.toString((char) texto).equals("#")) {
+                    escribir.write((char) 10);
+                    if (i >= 0 && i < 6) {
+                        byte[] apartado_convertido = apartado[i].getBytes();
+                        escribir.write(apartado_convertido);
                     }
+                    i++;
+
+                } else if (Character.toString((char) texto).equals("{")) {
+                    escribir.write((char) 10);
+                    escribir.write((char) 10);
+                    i = 0;
+                } else {
+                    escribir.write(texto);
                 }
-            } while (texto != -1);
-        } catch (FileNotFoundException exf) {
-            System.out.println();
-            throw new ErrorRutaEntrada(exf + "Error en la ruta de entrada", Arrays.toString(exf.getStackTrace()));
-        } catch (IOException exc) {
-            System.out.println("Error al leer el archivo");
-            System.out.println(exc.getMessage());
-        }
+            }
+        } while (texto != -1);
+        escribir.close();
     }
 }
