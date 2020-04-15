@@ -5,6 +5,11 @@
  */
 package practica.pkg7;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Date;
+
 /**
  *
  * @author Usuario
@@ -46,4 +51,12 @@ public class ErrorRuta extends Exception {
         this.errorCode = errorCode;
     }
 
+    public static void escribirErrores(String mensajeDeError, String stackTrace) throws IOException {
+        File finErrores = new File("errores.txt");
+        FileWriter escritorErrores = new FileWriter(finErrores, true);
+        Date fecha = new Date();
+        escritorErrores.write("\n" + mensajeDeError + " " + fecha.toString() + " " + stackTrace); //He arreglado lo del stackTrace y he puesto el metodo en la clase del error
+        escritorErrores.close();
+
+    }
 }

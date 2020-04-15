@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -58,6 +59,7 @@ public class Menu {
                         System.out.println("Has seleccionado la opcion 1");
                         rutaOrigen = rellenarRuta("Dime la ruta de Origen:");
                         rutaDestino = rellenarRuta("Dime la ruta de Destino:");
+                        //pedirRuta(); Lo que quiero poner en vez de las dos lineas de arriba
                         leerByte(rutaOrigen, rutaDestino);
                         rutaOrigen = null;
                         rutaDestino = null;
@@ -94,7 +96,7 @@ public class Menu {
                     } catch (ErrorRuta exNueva) {
                         try {
                             System.out.println(exNueva.getMensaje());
-                            escribirErrores(exNueva.getMensaje());
+                            exNueva.escribirErrores(exNueva.getMensaje(), Arrays.toString(exNueva.getStackTrace()));
                         } catch (IOException ex1) {
                             Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex1);
                         }
@@ -105,7 +107,7 @@ public class Menu {
                     } catch (ErrorRuta exNueva) {
                         try {
                             System.out.println(exNueva.getMensaje());
-                            escribirErrores(exNueva.getMensaje());
+                            exNueva.escribirErrores(exNueva.getMensaje(), Arrays.toString(exNueva.getStackTrace()));
                         } catch (IOException ex1) {
                             Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex1);
                         }
@@ -126,12 +128,10 @@ public class Menu {
         return ruta;
     }
 
-    public static void escribirErrores(String mensajeDeError) throws IOException {
-        File finErrores = new File("errores.txt");
-        FileWriter escritorErrores = new FileWriter(finErrores, true);
-        Date fecha = new Date();
-        escritorErrores.write("\n" + mensajeDeError + " " + fecha.toString() + " "); //Me falta poner el stack trace pero no se como ponerlo aqui
-        escritorErrores.close();
-
+    /*
+    public static void pedirRuta() { //Tengo que arreglar este metodo que estoy intentado hacer para reducir codigo
+        rutaOrigen = rellenarRuta("Dime la ruta de Origen:");
+        rutaDestino = rellenarRuta("Dime la ruta de Destino:");
     }
+     */
 }
