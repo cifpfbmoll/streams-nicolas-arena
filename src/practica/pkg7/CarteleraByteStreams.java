@@ -25,12 +25,12 @@ public class CarteleraByteStreams {
         FileInputStream leer = new FileInputStream(rutaOrigen);
         FileOutputStream escribir = new FileOutputStream(rutaDestino);
         escribir.write(enunciado_convertido);
-        escribir.write((char) 10);
+        escribir.write("\n".getBytes());
         do {
             texto = leer.read();
             if (texto != -1) {
                 if (Character.toString((char) texto).equals("#")) {
-                    escribir.write((char) 10);
+                    escribir.write("\n".getBytes());
                     if (i >= 0 && i < 6) {
                         byte[] apartado_convertido = apartado[i].getBytes();
                         escribir.write(apartado_convertido);
@@ -38,8 +38,8 @@ public class CarteleraByteStreams {
                     i++;
 
                 } else if (Character.toString((char) texto).equals("{")) {
-                    escribir.write((char) 10);
-                    escribir.write((char) 10);
+                    escribir.write("\n".getBytes());
+                    escribir.write("\n".getBytes());
                     i = 0;
                 } else {
                     escribir.write(texto);

@@ -5,12 +5,9 @@
  */
 package practica.pkg7;
 
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -26,6 +23,8 @@ import static practica.pkg7.CarteleraCharacterStreams.leerCharacter;
 public class Menu {
 
     static Scanner lector = new Scanner(System.in);
+    static String rutaOrigen = null;
+    static String rutaDestino = null;
 
     /**
      * @param args the command line arguments
@@ -35,8 +34,6 @@ public class Menu {
 
         boolean salir = false;
         int opcion; //Guardaremos la opcion del usuario
-        String rutaOrigen = null;
-        String rutaDestino = null;
 
         while (!salir) {
 
@@ -57,28 +54,21 @@ public class Menu {
                 switch (opcion) {
                     case 1:
                         System.out.println("Has seleccionado la opcion 1");
-                        rutaOrigen = rellenarRuta("Dime la ruta de Origen:");
-                        rutaDestino = rellenarRuta("Dime la ruta de Destino:");
-                        //pedirRuta(); Lo que quiero poner en vez de las dos lineas de arriba
+                        pedirRuta(); //rutaOrigen y rutaaDestino son globales por lo que comparten el resultado.
                         leerByte(rutaOrigen, rutaDestino);
-                        rutaOrigen = null;
-                        rutaDestino = null;
+                        resetearRutas();
                         break;
                     case 2:
                         System.out.println("Has seleccionado la opcion 2");
-                        rutaOrigen = rellenarRuta("Dime la ruta de Origen:");
-                        rutaDestino = rellenarRuta("Dime la ruta de Destino:");
+                        pedirRuta();
                         leerCharacter(rutaOrigen, rutaDestino);
-                        rutaOrigen = null;
-                        rutaDestino = null;
+                        resetearRutas();
                         break;
                     case 3:
                         System.out.println("Has seleccionado la opcion 3");
-                        rutaOrigen = rellenarRuta("Dime la ruta de Origen:");
-                        rutaDestino = rellenarRuta("Dime la ruta de Destino:");
+                        pedirRuta();
                         leerBuffer(rutaOrigen, rutaDestino);
-                        rutaOrigen = null;
-                        rutaDestino = null;
+                        resetearRutas();
                         break;
                     case 4:
                         salir = true;
@@ -95,7 +85,7 @@ public class Menu {
                         throw new ErrorRuta(444);
                     } catch (ErrorRuta exNueva) {
                         try {
-                            System.out.println(exNueva.getMensaje());
+                            exNueva.imprimirErrores(exNueva.getMensaje());
                             exNueva.escribirErrores(exNueva.getMensaje(), Arrays.toString(exNueva.getStackTrace()));
                         } catch (IOException ex1) {
                             Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex1);
@@ -106,7 +96,7 @@ public class Menu {
                         throw new ErrorRuta(333);
                     } catch (ErrorRuta exNueva) {
                         try {
-                            System.out.println(exNueva.getMensaje());
+                            exNueva.imprimirErrores(exNueva.getMensaje());
                             exNueva.escribirErrores(exNueva.getMensaje(), Arrays.toString(exNueva.getStackTrace()));
                         } catch (IOException ex1) {
                             Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex1);
@@ -128,10 +118,13 @@ public class Menu {
         return ruta;
     }
 
-    /*
     public static void pedirRuta() { //Tengo que arreglar este metodo que estoy intentado hacer para reducir codigo
         rutaOrigen = rellenarRuta("Dime la ruta de Origen:");
         rutaDestino = rellenarRuta("Dime la ruta de Destino:");
     }
-     */
+
+    public static void resetearRutas() {
+        rutaOrigen = null;
+        rutaDestino = null;
+    }
 }

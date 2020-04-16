@@ -59,4 +59,8 @@ public class ErrorRuta extends Exception {
         escritorErrores.close();
 
     }
+
+    public static void imprimirErrores(String mensajeError) {
+        System.err.println(mensajeError);
+    }
 }
