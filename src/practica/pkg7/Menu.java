@@ -29,7 +29,10 @@ public class Menu {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws ErrorRuta {
+    public static void main(String[] args) {
+        /*Le he quitado esto:  throws ErrorRuta 
+        porque me parece que no hace falta.
+         */
         // TODO code application logic here
 
         boolean salir = false;
@@ -43,8 +46,9 @@ public class Menu {
                     + "carácter a carácter (character Streams).");
             System.out.println("3. Lectura y escritura de fichero línea a línea "
                     + "con buffers (character Streams).");
+            System.out.println("4. Tratamiento de objetos.");
             System.out.println("");
-            System.out.println("4. Salir");
+            System.out.println("5. Salir");
 
             try {
 
@@ -71,10 +75,14 @@ public class Menu {
                         resetearRutas();
                         break;
                     case 4:
+                        System.out.println("Has seleccionado la opcion 4");
+                        menuObjetos();
+                        break;
+                    case 5:
                         salir = true;
                         break;
                     default:
-                        System.out.println("Solo números entre 1 y 4");
+                        System.out.println("Solo números entre 1 y 5");
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Debes insertar un número");
@@ -126,5 +134,51 @@ public class Menu {
     public static void resetearRutas() {
         rutaOrigen = null;
         rutaDestino = null;
+    }
+
+    public static void menuObjetos() throws InputMismatchException, FileNotFoundException, IOException {
+        boolean salir2 = false;
+        int opcion2; //Guardaremos la opcion del usuario
+
+        while (!salir2) {
+
+            System.out.println("1. Lectura línea a línea y escritura con "
+                    + "objetos (obteniendo ficheroSalObj).");
+            System.out.println("2. Lectura de objetos (leyendo "
+                    + "ficheroSalObj) y escritura de objetos (obteniendo "
+                    + "ficheroSalObj2)");
+            System.out.println("3. Lectura de objetos (leyendo "
+                    + "ficheroSalObj2) y escritura por consola (comprobaremos "
+                    + "por consola que nos ha escrito bien los objetos en los "
+                    + "pasos anteriores).");
+            System.out.println("4. Lectura por consola y escritura de objetos.");
+            System.out.println("5. Volver al menú principal.");
+
+            System.out.println("Escribe una de las opciones");
+            opcion2 = lector.nextInt();
+
+            switch (opcion2) {
+                case 1:
+                    System.out.println("Has seleccionado la opcion 1");
+                    pedirRuta();
+                    //Tengo que crear la clase cartelera con los metodos adecuados
+                    break;
+                case 2:
+                    System.out.println("Has seleccionado la opcion 2");
+                    break;
+                case 3:
+                    System.out.println("Has seleccionado la opcion 3");
+                    break;
+                case 4:
+                    System.out.println("Has seleccionado la opcion 4");
+                    break;
+                case 5:
+                    salir2 = true;
+                    break;
+                default:
+                    System.out.println("Solo números entre 1 y 5");
+            }
+
+        }
     }
 }
