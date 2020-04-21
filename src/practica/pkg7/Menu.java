@@ -15,6 +15,10 @@ import java.util.logging.Logger;
 import static practica.pkg7.BuffersCharacterStreams.leerBuffer;
 import static practica.pkg7.CarteleraByteStreams.leerByte;
 import static practica.pkg7.CarteleraCharacterStreams.leerCharacter;
+import static practica.pkg7.CarteleraObjetos.leerConsEscribirObj;
+import static practica.pkg7.CarteleraObjetos.leerEscribirObjetos;
+import static practica.pkg7.CarteleraObjetos.leerObjEscribirCons;
+import static practica.pkg7.CarteleraObjetos.leerObjEscribirObj;
 
 /**
  *
@@ -76,7 +80,7 @@ public class Menu {
                         break;
                     case 4:
                         System.out.println("Has seleccionado la opcion 4");
-                        menuObjetos();
+                        menuObjetos(); //Revisar
                         break;
                     case 5:
                         salir = true;
@@ -136,7 +140,7 @@ public class Menu {
         rutaDestino = null;
     }
 
-    public static void menuObjetos() throws InputMismatchException, FileNotFoundException, IOException {
+    public static void menuObjetos() throws InputMismatchException, FileNotFoundException, ErrorRuta {
         boolean salir2 = false;
         int opcion2; //Guardaremos la opcion del usuario
 
@@ -155,22 +159,32 @@ public class Menu {
             System.out.println("5. Volver al menú principal.");
 
             System.out.println("Escribe una de las opciones");
-            opcion2 = lector.nextInt();
+            opcion2 = Integer.parseInt(lector.nextLine());
 
             switch (opcion2) {
                 case 1:
                     System.out.println("Has seleccionado la opcion 1");
                     pedirRuta();
-                    //Tengo que crear la clase cartelera con los metodos adecuados
+                    leerEscribirObjetos(rutaOrigen, rutaDestino);
+                    resetearRutas();
                     break;
                 case 2:
                     System.out.println("Has seleccionado la opcion 2");
+                    pedirRuta();
+                    leerObjEscribirObj(rutaOrigen, rutaDestino);
+                    resetearRutas();
                     break;
                 case 3:
                     System.out.println("Has seleccionado la opcion 3");
+                    rutaOrigen = rellenarRuta("Dime la ruta de Origen:");
+                    leerObjEscribirCons(rutaOrigen);
+                    resetearRutas();
                     break;
                 case 4:
                     System.out.println("Has seleccionado la opcion 4");
+                    rutaDestino = rellenarRuta("Dime la ruta de Destino:");
+                    leerConsEscribirObj(rutaDestino);
+                    resetearRutas();
                     break;
                 case 5:
                     salir2 = true;
