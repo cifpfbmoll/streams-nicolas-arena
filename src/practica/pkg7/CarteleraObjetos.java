@@ -48,7 +48,7 @@ public class CarteleraObjetos {
      * @throws RutaInvalida Excepción lanzada cuando no encuentra el fichero de
      * entrada
      */
-    public static void leerEscribirObjetos(String rutaOrigen, String rutaDestino) throws ErrorRuta {
+    public static void leerEscribirObjetos(String rutaOrigen, String rutaDestino) throws FileNotFoundException {
         //No se si tengo que poner en el throw el ErrorRuta o dejar lo que he puesto
         try (BufferedReader lectorBuffer = new BufferedReader(new FileReader("rutaOrigen"));
                 ObjectOutputStream objectSalida = new ObjectOutputStream(new FileOutputStream("rutaDestino"))) {
@@ -146,7 +146,7 @@ public class CarteleraObjetos {
      * @throws RutaInvalida Excepción lanzada cuando no encuentra el fichero de
      * entrada
      */
-    public static void leerObjEscribirObj(String rutaOrigen, String rutaDestino) throws ErrorRuta {//No se que poner en los throws
+    public static void leerObjEscribirObj(String rutaOrigen, String rutaDestino) throws FileNotFoundException {//No se que poner en los throws
         try (ObjectInputStream objectEntrada = new ObjectInputStream(new FileInputStream(rutaOrigen));
                 ObjectOutputStream objectSalida = new ObjectOutputStream(new FileOutputStream(rutaDestino))) {
             boolean eof = false;
@@ -181,12 +181,12 @@ public class CarteleraObjetos {
      * @throws RutaInvalida Excepción lanzada cuando no encuentra el fichero de
      * entrada
      */
-    public static void leerObjEscribirCons(String rutaOrigen) {
+    public static void leerObjEscribirCons(String rutaOrigen) throws FileNotFoundException {
         try (ObjectInputStream objectEntrada = new ObjectInputStream(new FileInputStream(rutaOrigen))) {
             boolean eof = false;
             Pelicula p = new Pelicula();
             while (!eof) {
-                p = (Pelicula) objectEntrada.readObject();//No lo entiendo bien, lo esta sobrescribiendo cada vez?
+                p = (Pelicula) objectEntrada.readObject();//Sobrescribe los valores
                 p.mostrarPelicula();
             }
         } catch (EOFException e) {
@@ -215,7 +215,7 @@ public class CarteleraObjetos {
      * <li>Escribirá el objeto en el fichero de salida</li>
      * </ol>
      */
-    public static void leerConsEscribirObj(String rutaDestino) {
+    public static void leerConsEscribirObj(String rutaDestino) throws FileNotFoundException {
         try (ObjectOutputStream objectSalida = new ObjectOutputStream(new FileOutputStream(rutaDestino))) {
             Pelicula p = new Pelicula(); //Creo el objeto
             p.pedirPelicula();//Te piden los datos de la pelicula

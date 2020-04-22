@@ -62,19 +62,22 @@ public class Menu {
                 switch (opcion) {
                     case 1:
                         System.out.println("Has seleccionado la opcion 1");
-                        pedirRuta(); //rutaOrigen y rutaaDestino son globales por lo que comparten el resultado.
+                        pedirRutaOrigen();
+                        pedirRutaDestino(); //rutaOrigen y rutaDestino son globales por lo que comparten el resultado.
                         leerByte(rutaOrigen, rutaDestino);
                         resetearRutas();
                         break;
                     case 2:
                         System.out.println("Has seleccionado la opcion 2");
-                        pedirRuta();
+                        pedirRutaOrigen();
+                        pedirRutaDestino();
                         leerCharacter(rutaOrigen, rutaDestino);
                         resetearRutas();
                         break;
                     case 3:
                         System.out.println("Has seleccionado la opcion 3");
-                        pedirRuta();
+                        pedirRutaOrigen();
+                        pedirRutaDestino();
                         leerBuffer(rutaOrigen, rutaDestino);
                         resetearRutas();
                         break;
@@ -130,8 +133,11 @@ public class Menu {
         return ruta;
     }
 
-    public static void pedirRuta() { //Tengo que arreglar este metodo que estoy intentado hacer para reducir codigo
+    public static void pedirRutaOrigen() { //Para reducir memoria
         rutaOrigen = rellenarRuta("Dime la ruta de Origen:");
+    }
+
+    public static void pedirRutaDestino() {
         rutaDestino = rellenarRuta("Dime la ruta de Destino:");
     }
 
@@ -140,7 +146,7 @@ public class Menu {
         rutaDestino = null;
     }
 
-    public static void menuObjetos() throws InputMismatchException, FileNotFoundException, ErrorRuta {
+    public static void menuObjetos() throws InputMismatchException, FileNotFoundException {
         boolean salir2 = false;
         int opcion2; //Guardaremos la opcion del usuario
 
@@ -164,25 +170,27 @@ public class Menu {
             switch (opcion2) {
                 case 1:
                     System.out.println("Has seleccionado la opcion 1");
-                    pedirRuta();
+                    pedirRutaOrigen();
+                    pedirRutaDestino();
                     leerEscribirObjetos(rutaOrigen, rutaDestino);
                     resetearRutas();
                     break;
                 case 2:
                     System.out.println("Has seleccionado la opcion 2");
-                    pedirRuta();
+                    pedirRutaOrigen();
+                    pedirRutaDestino();
                     leerObjEscribirObj(rutaOrigen, rutaDestino);
                     resetearRutas();
                     break;
                 case 3:
                     System.out.println("Has seleccionado la opcion 3");
-                    rutaOrigen = rellenarRuta("Dime la ruta de Origen:");
+                    pedirRutaOrigen();
                     leerObjEscribirCons(rutaOrigen);
                     resetearRutas();
                     break;
                 case 4:
                     System.out.println("Has seleccionado la opcion 4");
-                    rutaDestino = rellenarRuta("Dime la ruta de Destino:");
+                    pedirRutaDestino();
                     leerConsEscribirObj(rutaDestino);
                     resetearRutas();
                     break;
